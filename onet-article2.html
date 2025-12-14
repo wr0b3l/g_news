@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Najnowsze wiadomości - Portal Informacyjny</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=DM+Sans:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --red-primary: #d32f2f;
+            --red-dark: #b71c1c;
+            --red-light: #ef5350;
+            --gray-bg: #f5f5f5;
+            --gray-light: #e0e0e0;
+            --gray-dark: #424242;
+            --text-primary: #212121;
+            --text-secondary: #757575;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--gray-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: var(--red-primary);
+            color: white;
+            padding: 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            animation: slideDown 0.4s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .header-top {
+            background: var(--red-dark);
+            padding: 8px 0;
+            font-size: 13px;
+        }
+
+        .header-top-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .date {
+            opacity: 0.9;
+        }
+
+        .header-main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: 'Crimson Pro', serif;
+            font-size: 42px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav {
+            display: flex;
+            gap: 30px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 0;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .nav a:hover {
+            border-bottom-color: white;
+            opacity: 0.9;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 40px;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Main Article */
+        .main-article {
+            background: white;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .main-article:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .article-category {
+            display: inline-block;
+            background: var(--red-primary);
+            color: white;
+            padding: 6px 16px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 20px 0 0 20px;
+        }
+
+        .article-hero {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            margin-top: 15px;
+        }
+
+        .article-content {
+            padding: 30px 40px 40px;
+        }
+
+        .article-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 42px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 20px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .article-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .article-lead {
+            font-size: 20px;
+            line-height: 1.6;
+            color: var(--gray-dark);
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        .article-body {
+            font-size: 17px;
+            line-height: 1.8;
+            color: var(--text-primary);
+        }
+
+        .article-body p {
+            margin-bottom: 20px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            animation: fadeIn 0.6s ease-out 0.2s both;
+        }
+
+        .sidebar-section {
+            background: white;
+            border-radius: 4px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--red-primary);
+        }
+
+        .sidebar-article {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--gray-light);
+            transition: transform 0.2s ease;
+            cursor: pointer;
+        }
+
+        .sidebar-article:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .sidebar-article:hover {
+            transform: translateX(5px);
+        }
+
+        .sidebar-article-image {
+            width: 100px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+
+        .sidebar-article-content {
+            flex: 1;
+        }
+
+        .sidebar-article-category {
+            color: var(--red-primary);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        .sidebar-article-title {
+            font-size: 15px;
+            font-weight: 600;
+            line-height: 1.4;
+            color: var(--text-primary);
+        }
+
+        .sidebar-article-time {
+            color: var(--text-secondary);
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        /* Ad space */
+        .ad-space {
+            background: linear-gradient(135deg, #e0e0e0 0%, #f5f5f5 100%);
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 14px;
+            border: 1px dashed #ccc;
+            border-radius: 4px;
+        }
+
+        @media (max-width: 968px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .nav {
+                display: none;
+            }
+
+            .article-title {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-top">
+            <div class="header-top-content">
+                <div class="date">Niedziela, 15 grudnia 2024</div>
+                <div>Pogoda: Warszawa 3°C | Kraków 1°C</div>
+            </div>
+        </div>
+        <div class="header-main">
+            <div class="logo">Portal.pl</div>
+            <nav class="nav">
+                <a href="#wiadomosci">Wiadomości</a>
+                <a href="#sport">Sport</a>
+                <a href="#biznes">Biznes</a>
+                <a href="#kultura">Kultura</a>
+                <a href="#technologie">Technologie</a>
+                <a href="#styl-zycia">Styl życia</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <main>
+            <article class="main-article">
+                <div class="article-category">Społeczeństwo</div>
+                <img src="https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=1200&h=800&fit=crop"
+                    alt="Prezent" class="article-hero">
+                <div class="article-content">
+                    <h1 class="article-title">Upadek tradycyjnych wartości: Polka w Szwecji jako prezent świąteczny od
+                        szwagra otrzymała dildo!</h1>
+                    <div class="article-meta">
+                        <span>📅 15 grudnia 2024, 14:32</span>
+                        <span>✍️ Redakcja</span>
+                        <span>💬 2 847 komentarzy</span>
+                    </div>
+                    <p class="article-lead">
+                        Bulwersujące wydarzenie z rodzinnego spotkania w Szwecji. Polska emigrantka została zszokowana
+                        "nowoczesnym" prezentem od szwagra. To kolejny dowód na zanik szacunku dla tradycyjnych wartości
+                        w krajach skandynawskich!
+                    </p>
+                    <div class="article-body">
+                        <p>
+                            Nie do wiary! Informacje, które do nas dotarły, wzbudzają głębokie oburzenie wszystkich osób
+                            przywiązanych do normalności i zdrowego rozsądku. Polska rodzina mieszkająca w Szwecji
+                            doświadczyła na własnej skórze, do czego prowadzi skandynawska "tolerancja" i odejście od
+                            chrześcijańskich wartości.
+                        </p>
+                        <p>
+                            Podczas świątecznego spotkania rodzinnego, szwagier - urodzony Polak - wręczył polskiej
+                            kobiecie prezent, który wprawił wszystkich w osłupienie. Przedmiot o falicznym kształcie
+                            przypominający DILDO! Tak, dobrze Państwo przeczytali. To właśnie taki "prezent" uznano za
+                            stosowny na święta Bożego Narodzenia, które przecież są czasem rodzinnym i pełnym szacunku.
+                        </p>
+                        <p>
+                            "To jest absolutnie niedopuszczalne! W Polsce nikt by na coś takiego nie wpadł!" - mówi
+                            oburzona bohaterka tego skandalicznego zdarzenia. "Gdzie jest szacunek dla kobiety? Gdzie
+                            tradycyjne wartości? To pokazuje, jak daleko zaszła dekadencja na Zachodzie!" - dodaje ze
+                            łzami w oczach.
+                        </p>
+                        <p>
+                            Eksperci od tradycji i moralności ostrzegają: to nie przypadek! To część szerszej strategii
+                            destrukcji rodziny i wartości chrześcijańskich w krajach skandynawskich. Najpierw pozwalają
+                            na małżeństwa jednopłciowe, potem promują absurdalne pomysły ekologiczne, a teraz to! Gdzie
+                            kończy się ta spirala upadku?
+                        </p>
+                        <p>
+                            "Widać wyraźnie, że w krajach takich jak Szwecja zapomniano, czym jest godność człowieka" -
+                            komentuje profesor zwyczajny nauk społecznych. "Polacy mieszkający za granicą muszą być
+                            czujni i nie pozwolić, by te zgubne wpływy zniszczyły to, co w nas najcenniejsze - naszą
+                            kulturę i tradycję!"
+                        </p>
+                        <p>
+                            Czy to jest przyszłość, którą chcemy dla naszych dzieci? Czy to są "europejskie wartości", o
+                            których tyle się mówi? Redakcja apeluje do wszystkich Polaków - nie dajmy się zwariować!
+                            Brońmy tego, co polskie, brońmy normalności!
+                        </p>
+                        <p>
+                            Pozostaje tylko pytanie: kiedy wreszcie Europa Zachodnia obudzi się z tego koszmaru
+                            progresywizmu i wróci do zdrowych, tradycyjnych wartości, które przez wieki tworzyły
+                            fundament naszej cywilizacji?
+                        </p>
+                    </div>
+                </div>
+            </article>
+        </main>
+
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <h2 class="sidebar-title">Najczęściej czytane</h2>
+
+                <div class="sidebar-article">
+                    <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=200&h=140&fit=crop"
+                        alt="Sport" class="sidebar-article-image">
+                    <div class="sidebar-article-content">
+                        <div class="sidebar-article-category">Sport</div>
+                        <div class="sidebar-article-title">Historyczne zwycięstwo polskich siatkarzy w finale mistrzostw
+                        </div>
+                        <div class="sidebar-article-time">2 godz. temu</div>
+                    </div>
+                </div>
+
+                <div class="sidebar-article">
+                    <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=200&h=140&fit=crop"
+                        alt="Polityka" class="sidebar-article-image">
+                    <div class="sidebar-article-content">
+                        <div class="sidebar-article-category">Polityka</div>
+                        <div class="sidebar-article-title">Premier zapowiada reformy w systemie ochrony zdrowia</div>
+                        <div class="sidebar-article-time">4 godz. temu</div>
+                    </div>
+                </div>
+
+                <div class="sidebar-article">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=200&h=140&fit=crop"
+                        alt="Biznes" class="sidebar-article-image">
+                    <div class="sidebar-article-content">
+                        <div class="sidebar-article-category">Biznes</div>
+                        <div class="sidebar-article-title">Wzrost PKB przekracza prognozy ekonomistów. Co to oznacza?
+                        </div>
+                        <div class="sidebar-article-time">5 godz. temu</div>
+                    </div>
+                </div>
+
+                <div class="sidebar-article">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=200&h=140&fit=crop"
+                        alt="Podróże" class="sidebar-article-image">
+                    <div class="sidebar-article-content">
+                        <div class="sidebar-article-category">Styl życia</div>
+                        <div class="sidebar-article-title">10 najpiękniejszych miejsc w Polsce na zimowy wypad</div>
+                        <div class="sidebar-article-time">6 godz. temu</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-section ad-space">
+                Reklama
+            </div>
+
+            <div class="sidebar-section">
+                <h2 class="sidebar-title">Wideo dnia</h2>
+                <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=400&h=250&fit=crop" alt="Wideo"
+                    style="width: 100%; border-radius: 4px;">
+                <div style="margin-top: 10px; font-weight: 600;">
+                    Niesamowite nagranie z burzy nad Bałtykiem
+                </div>
+                <div style="margin-top: 5px; color: var(--text-secondary); font-size: 14px;">
+                    1,2 mln wyświetleń
+                </div>
+            </div>
+        </aside>
+    </div>
+</body>
+
+</html>
